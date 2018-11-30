@@ -28,6 +28,6 @@ class FetchRetrieveCommandTest extends TestCase
 
     protected function getRetrievableResource()
     {
-        return Resource::where('status_id', Resource::STATUSES['COMPLETED'])->orderBy('id', 'desc')->first();
+        return Resource::where('status_id', Resource::STATUSES['COMPLETED']['id'])->orderBy('id', 'desc')->first();
     }
 }

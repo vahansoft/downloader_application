@@ -8,6 +8,8 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class FetchCommandTest extends TestCase
 {
+    use WithFaker;
+
     /**
      * Tests accessability of downloading resource.
      *
@@ -16,7 +18,7 @@ class FetchCommandTest extends TestCase
     public function testFetchResourceCommand()
     {
         $this->artisan('fetch:resource', [
-            'urls' => ['http://ipv4.download.thinkbroadband.com/5MB.zip']
+            'urls' => [$this->faker->imageUrl(200, 200)]
         ])->assertExitCode(0);
     }
 }
