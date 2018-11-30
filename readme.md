@@ -6,7 +6,8 @@ This application is able to download particular resource by provided urls. Urls 
 ### Quick start
 
 ```sh
-composer install & cp .env.example .env & php artisan key:generate & touch ./database/database.sqlite & php artisan migrate
+composer install & cp .env.example .env & php artisan key:generate
+touch ./database/database.sqlite & php artisan migrate
 ```
 
 ### CLI Commands
