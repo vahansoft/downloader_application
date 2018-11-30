@@ -24,17 +24,7 @@ class FetchHistory extends Command
     protected $headers = ['Id', 'Name', 'File Size', 'Received Bytes', 'Created At', 'Status'];
 
     /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
-     * Execute the console command.
+     * Displayes fetched resources history
      *
      * @return mixed
      */
@@ -45,8 +35,14 @@ class FetchHistory extends Command
         $this->displayResources($resources);
     }
 
+    /**
+     * Retrieves existing resources from database
+     *
+     * @param  array  $jobs
+     * @return void
+     */
     protected function getResources() {
-        return Resource::select(['id', 'name', 'status_id', 'file_size', 'received_bytes','created_at'])
+        return Resource::select(['id', 'name', 'status_id', 'file_size', 'received_bytes', 'created_at'])
             ->orderBy('id', 'desc')
             ->get()
             ->makeHidden('status_id')
@@ -59,7 +55,7 @@ class FetchHistory extends Command
      * @param  array  $jobs
      * @return void
      */
-    protected function displayResources($items)
+    protected function displayResources(Array $items)
     {
         $this->table($this->headers, $items);
     }

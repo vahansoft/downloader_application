@@ -23,19 +23,9 @@ class FetchRetrieve extends Command
     protected $description = 'Command copies choosen ids into path.';
 
     /**
-     * Create a new command instance.
+     * Copies resources of provided ids into path
      *
      * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
-     * Execute the console command.
-     *
-     * @return mixed
      */
     public function handle()
     {

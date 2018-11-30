@@ -15,8 +15,9 @@ class DownloadResource implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     protected $resource;
+
     /**
-     * Create a new job instance.
+     * Init Resource info in database
      *
      * @return void
      */
@@ -33,7 +34,7 @@ class DownloadResource implements ShouldQueue
     }
 
     /**
-     * Execute the job.
+     * Fetchs resource from source and stores in local storage
      *
      * @return void
      */
@@ -48,7 +49,11 @@ class DownloadResource implements ShouldQueue
             'status_id' => Resource::getStatusId('DOWNLOADING')
         ]);
 
-        $context = stream_context_create([], [
+        $context = stream_context_create([
+            'http' => [
+                'header' => 'User-Agent: Downloader 1.0'
+            ]
+        ], [
             'notification' => [$this, 'progress']
         ]);
 
@@ -62,6 +67,11 @@ class DownloadResource implements ShouldQueue
         ]);
     }
 
+     /**
+     * When smf. went wrong and error is thrown updates resource status failed
+     *
+     * @return void
+     */
     public function failed()
     {
         $this->resource->update([
@@ -69,7 +79,11 @@ class DownloadResource implements ShouldQueue
         ]);
     }
 
-
+    /**
+     * tracks stream downloading progress
+     *
+     * @return void
+     */
     public function progress($notificationCode, $severity, $message, $messageCode, $bytesTransferred, $fileSize)
     {
         $lastUpdateTime = strtotime($this->resource->updated_at);

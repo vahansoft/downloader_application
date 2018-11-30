@@ -32,7 +32,7 @@ class FetchResource extends Command
     }
 
     /**
-     * Execute the console command.
+     * Pushes provided urls into queue
      *
      * @return mixed
      */
